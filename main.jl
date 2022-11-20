@@ -36,7 +36,7 @@ function searchBxTag(
         nodeAttrs=attrs(current)
         # TODO: get index
     )
-    if tag(current) == Symbol("bx-extraction") && getattr(current, "name") == extractionTagName
+    if tag(current) == Symbol("bx-tag") && getattr(current, "name") == extractionTagName
         return newRule
     end
     for child in current.children
@@ -51,22 +51,40 @@ end
 
 
 function executeRule(
-    rule::BxRule, currentNode::HTMLElement
-)::HTMLElement
-    namedNodes::Vector{HTMLElement} = [
-        n for n in currentNode.children 
-            if 
-            (
-                checkNodeName(n, rule.nodeSymbol)
-                &&
-                (
-                    n.attributes == rule.nodeAttrs
-                    ||
-                    index
-                )
-        )    
-    ]
+    rootRule::BxRule, document::HTMLDocument
+)::AbstractString
+    if rootRule.nodeSymbol !== Symbol("root")
+        throw("Rule linked list must begin with rule 'root'")
+    end
+    rootNode::HTMLElement = document.root
+    return executeRule(rootRule.next, rootNode)
+end 
+
+function executeRule(
+    rule::BxRule, currentElement::HTMLElement
+)::AbstractString
+    # TODO fix logic with the root vs HTML starter node
+    if rule.nodeSymbol == Symbol("HTML")
+        rule = rule.next        
+    end
+    for child in currentElement.children
+        if tag(child) == rule.nodeSymbol
+            if child.attributes == rule.nodeAttrs
+                if rule.next.nodeSymbol == Symbol("bx-tag")
+                    return text(child)
+                else
+                    return executeRule(rule.next, child)                
+                end
+            end
+        end
+    end
+    eleToFind = string(rule.nodeSymbol)
+    attrs = rule.nodeAttrs
+    throw("Could not find element $eleToFind with attrs $attrs")
     
 end
 
+
 end
+
+
