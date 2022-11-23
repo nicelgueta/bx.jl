@@ -7,8 +7,8 @@
         {
             "type": "julia",
             "request": "launch",
-            "name": "Run active Julia file",
-            "program": "${file}",
+            "name": "Run tests",
+            "program": "tests.jl",
             "stopOnEntry": false,
             "cwd": "${workspaceFolder}",
             "juliaEnv": "./bx",

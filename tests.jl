@@ -31,7 +31,7 @@ function test_e2e_exe(file_name::String, tagName::String)::String
     tagged_document = parsehtml(tagged)
     untagged_document = parsehtml(untagged)
     ruleRoot::algorithm.BxRule = algorithm.generateExtractionRules(tagged_document, tagName)
-    text = algorithm.executeRule(ruleRoot, untagged_document)
+    text = algorithm.executeRule(ruleRoot, untagged_document, tagName)
     return text
 
 end
@@ -39,10 +39,10 @@ end
 
 @testset "Bx e2e rule generation tests" begin
     @test test_e2e_generate("mini_tagged", "world") == Symbol("bx-tag")
-    @test test_e2e_generate("test_tagged", "complexField") == Symbol("bx-tag")
+    @test test_e2e_generate("ecomm_tagged", "privPolicy") == Symbol("bx-tag")
 end
 
 @testset "Bx e2e rule execution tests" begin
     @test test_e2e_exe("mini", "world") == "world"
-    @test test_e2e_exe("test", "complexField") == "In this repository"
+    @test test_e2e_exe("ecomm", "privPolicy") == "Browser Extension Privacy Policy"
 end
