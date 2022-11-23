@@ -18,4 +18,4 @@ Linked-list of rules to be executed sequentially
     nodeIndex::Union{Int, Nothing} = nothing
 end
 
-end
+end # module

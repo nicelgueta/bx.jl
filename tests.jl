@@ -1,17 +1,19 @@
-include("main.jl")
+include("algorithm.jl")
 
-using .main
+using .algorithm
 using Test
 using Gumbo
 
+TEST_FILE_LOCATION::String = "test_htmls/"
+
 
 function test_e2e_generate(file_name::String, tagName::String)::Symbol
-    a = open("$file_name.html") do file
+    a = open("$TEST_FILE_LOCATION$file_name.html") do file
         read(file, String)
     end
 
     document = parsehtml(a)
-    ruleRoot::main.BxRule = main.generateExtractionRules(document, tagName)
+    ruleRoot::algorithm.BxRule = algorithm.generateExtractionRules(document, tagName)
     rule = ruleRoot
     while rule.next !== nothing
         rule = rule.next
@@ -20,16 +22,16 @@ function test_e2e_generate(file_name::String, tagName::String)::Symbol
 end
 
 function test_e2e_exe(file_name::String, tagName::String)::String
-    untagged = open("$file_name.html") do file
+    untagged = open("$TEST_FILE_LOCATION$file_name.html") do file
         read(file, String)
     end
-    tagged = open(file_name * "_tagged.html") do file
+    tagged = open(TEST_FILE_LOCATION * file_name * "_tagged.html") do file
         read(file, String)
     end
     tagged_document = parsehtml(tagged)
     untagged_document = parsehtml(untagged)
-    ruleRoot::main.BxRule = main.generateExtractionRules(tagged_document, tagName)
-    text = main.executeRule(ruleRoot, untagged_document)
+    ruleRoot::algorithm.BxRule = algorithm.generateExtractionRules(tagged_document, tagName)
+    text = algorithm.executeRule(ruleRoot, untagged_document)
     return text
 
 end

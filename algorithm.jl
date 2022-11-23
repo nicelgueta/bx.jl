@@ -1,4 +1,6 @@
-module main
+module algorithm
+
+
 include("interfaces.jl")
 
 using .interfaces: BxRule
@@ -60,13 +62,17 @@ function executeRule(
     return executeRule(rootRule.next, rootNode)
 end 
 
+
 function executeRule(
     rule::BxRule, currentElement::HTMLElement
 )::AbstractString
     # TODO fix logic with the root vs HTML starter node
+    # remove the not pretty workaround below
     if rule.nodeSymbol == Symbol("HTML")
         rule = rule.next        
     end
+
+
     for child in currentElement.children
         if tag(child) == rule.nodeSymbol
             if child.attributes == rule.nodeAttrs
@@ -85,6 +91,6 @@ function executeRule(
 end
 
 
-end
+end # module
 
 
