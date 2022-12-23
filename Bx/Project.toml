@@ -1,0 +1,11 @@
+name = "Bx"
+uuid = "e2820adb-1a1a-48a1-b5af-062c70d8ab14"
+authors = ["nicelgueta <nicelgueta@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Gumbo = "708ec375-b3d6-5a57-a7ce-8257bf98657a"
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+PackageCompiler = "9b87118b-4619-50d2-8e1e-99f35a4d4d9d"
+Parameters = "d96e819e-fc66-5662-9728-84c9c7592b0a"
