@@ -1,4 +1,4 @@
-include("algorithm.jl")
+include("./Bx/src/algorithm.jl")
 
 using .algorithm
 using Test

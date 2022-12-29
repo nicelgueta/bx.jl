@@ -86,6 +86,7 @@ function executeRule(
     if rule.nodeSymbol == Symbol("HTML")
         rule = rule.next        
     end
+    println("Using: $(rule.nodeSymbol) $(rule.nodeIndex)")
     winningChild::Union{HTMLElement, Nothing} = nothing
     for (childIndex, child) in enumerate(currentElement.children)
         if tag(child) == rule.nodeSymbol

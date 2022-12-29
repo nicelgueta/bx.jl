@@ -4,4 +4,4 @@ test:
 
 .PHONY: run
 run:
-	julia --project=./bx main.jl
+	julia --project=./bx mytest.jl

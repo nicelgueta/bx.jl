@@ -1,2 +1,4 @@
 # Folders 
 venv/
+*.so
+BxCompiled/
