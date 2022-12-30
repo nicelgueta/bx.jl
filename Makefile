@@ -1,7 +1,7 @@
 .PHONY: test
 test:
-	julia --project=./bx tests.jl
+	julia --project=./Bx tests.jl
 
 .PHONY: run
 run:
-	julia --project=./bx mytest.jl
+	julia --project=./Bx mytest.jl

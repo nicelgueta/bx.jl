@@ -2,3 +2,5 @@
 venv/
 *.so
 BxCompiled/
+node_modules/
+build/
